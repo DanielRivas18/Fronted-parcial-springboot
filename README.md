@@ -6,6 +6,8 @@ npm i
 
 npm start
 
+para que ejecute bien, recuerde que debe tener ejecuta el backend hecho en springboot por el puerto 8080
+
 # modulos utlizados
 
 - ejs
