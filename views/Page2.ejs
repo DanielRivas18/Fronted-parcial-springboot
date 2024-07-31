@@ -1,45 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Estudiantes</title>
+    <title>Estudiantes por Práctica</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 5px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
-
 <body>
     <div class="container mt-4">
-        <div class="button-container mb-4">
-            <a href="/" class="button">Volver</a>
-        </div>
+        <h1 class="mb-4">Buscar Estudiantes por Práctica</h1>
 
-        <h1 class="mb-4">Listado de Estudiantes</h1>
+        <!-- Formulario para buscar estudiantes por ID de práctica -->
+        <form action="/api1/practicas/estudiantes" method="get">
+            <div class="form-group">
+                <label for="practicaId">ID de Práctica:</label>
+                <input type="text" id="practicaId" name="id" class="form-control" placeholder="Ingrese el ID de la práctica" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar Estudiantes</button>
+        </form>
 
         <% if (typeof error !== 'undefined' && error) { %>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger mt-4" role="alert">
                 <%= error %>
             </div>
         <% } %>
 
-        <% if (estudiantes && estudiantes.length > 0) { %>
+        <% if (typeof estudiantes !== 'undefined' && estudiantes && estudiantes.length > 0) { %>
             <h2 class="mb-4">Estudiantes:</h2>
             <table class="table table-striped">
                 <thead>
@@ -57,6 +43,8 @@
                     <% }); %>
                 </tbody>
             </table>
+        <% } else if (typeof estudiantes !== 'undefined' && estudiantes.length === 0) { %>
+            <p>No hay estudiantes disponibles para esta práctica.</p>
         <% } %>
     </div>
 
@@ -64,5 +52,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

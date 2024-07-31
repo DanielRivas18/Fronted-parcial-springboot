@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+
 router.get('/practicas', async (req, res) => {
     const identificacion = req.query.identificacion;
 
@@ -10,10 +11,8 @@ router.get('/practicas', async (req, res) => {
     }
 
     try {
-
         const response = await axios.get(`http://localhost:8080/api/docentes/${identificacion}/practicas`);
         const practicas = response.data;
-
 
         if (Array.isArray(practicas) && practicas.length > 0) {
             res.render('ViewPracticas', { practicas, error: '' });
