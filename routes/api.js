@@ -10,19 +10,19 @@ router.get('/practicas', async (req, res) => {
     }
 
     try {
-        // Solicitar información de las prácticas del docente
+
         const response = await axios.get(`http://localhost:8080/api/docentes/${identificacion}/practicas`);
         const practicas = response.data;
 
-        // Verifica si practicas es una lista y tiene elementos
+
         if (Array.isArray(practicas) && practicas.length > 0) {
-            res.render('index', { practicas, error: '' });
+            res.render('ViewPracticas', { practicas, error: '' });
         } else {
-            res.render('index', { practicas: [], error: 'No se encontraron prácticas para la identificación proporcionada.' });
+            res.render('ViewPracticas', { practicas: [], error: 'No se encontraron prácticas para la identificación proporcionada.' });
         }
     } catch (error) {
         console.error('Error fetching data:', error);
-        res.render('index', { practicas: [], error: 'Error al obtener datos. Por favor, inténtelo de nuevo más tarde.' });
+        res.render('ViewPracticas', { practicas: [], error: 'Error al obtener datos. Posible identificador no existente.' });
     }
 });
 

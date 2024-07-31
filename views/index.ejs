@@ -1,81 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <title>Buscar Prácticas</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
     <style>
-        .collapsed { cursor: pointer; }
-        .collapsed:hover { text-decoration: underline; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .button-container {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .button {
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-description {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
     </style>
 </head>
+
 <body>
-    <div class="container mt-4">
-        <h1 class="mb-4">Buscar Prácticas</h1>
+    <h1>VISTA PARCIAL</h1>
 
-        <form action="/api/practicas" method="get" class="mb-4">
-            <div class="form-group">
-                <input type="text" name="identificacion" class="form-control" placeholder="Ingrese identificación" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </form>
+    <div class="button-group">
+        <div class="button-container">
+            <div class="button-description">Listar datos por IDENTIFICADOR de docente</div>
+            <a href="/viewPracticas" class="button">Listado</a>
+        </div>
 
-        <% if (typeof error !== 'undefined' && error) { %>
-            <div class="alert alert-danger" role="alert">
-                <%= error %>
-            </div>
-        <% } %>
-
-        <% if (practicas.length > 0) { %>
-            <h2 class="mb-4">Prácticas:</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Destino</th>
-                        <th>Fecha de Salida</th>
-                        <th>Fecha de Regreso</th>
-                        <th>Empresas</th>
-                        <th>Estudiantes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% practicas.forEach(practica => { %>
-                        <tr>
-                            <td><%= practica.destino %></td>
-                            <td><%= practica.fechaSalida %></td>
-                            <td><%= practica.fechaRegreso %></td>
-                            <td>
-                                <a class="collapsed" data-toggle="collapse" href="#empresas-<%= practica.id %>" role="button" aria-expanded="false" aria-controls="empresas-<%= practica.id %>">
-                                    Ver Empresas
-                                </a>
-                                <div class="collapse" id="empresas-<%= practica.id %>">
-                                    <ul class="list-unstyled mt-2">
-                                        <% practica.empresas.forEach(empresa => { %>
-                                            <li><%= empresa.nombre %> - <%= empresa.direccion %></li>
-                                        <% }); %>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <a class="collapsed" data-toggle="collapse" href="#estudiantes-<%= practica.id %>" role="button" aria-expanded="false" aria-controls="estudiantes-<%= practica.id %>">
-                                    Ver Estudiantes
-                                </a>
-                                <div class="collapse" id="estudiantes-<%= practica.id %>">
-                                    <ul class="list-unstyled mt-2">
-                                        <% practica.estudiantes.forEach(estudiante => { %>
-                                            <li><%= estudiante.nombre %> - <%= estudiante.identificador %></li>
-                                        <% }); %>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
-        <% } %>
+        <div class="button-container">
+            <div class="button-description">Listado de estudiantes por ID de practica</div>
+            <a href="/page2" class="button">Listar</a>
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

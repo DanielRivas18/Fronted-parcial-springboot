@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buscar Prácticas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .collapsed {
+            cursor: pointer;
+        }
+
+        .collapsed:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button-container .btn {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <!-- Contenedor para los botones -->
+        <div class="button-container mb-4">
+            <a href="/" class="button">Volver </a>
+            <form action="/api/practicas" method="get" class="form-inline">
+                <input type="text" name="identificacion" class="form-control mr-2" placeholder="Ingrese identificación"
+                    required />
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+
+        <h1 class="mb-4">Listado Por Docente</h1>
+
+        <% if (typeof error !=='undefined' && error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+            <% } %>
+
+                <% if (practicas.length> 0) { %>
+
+
+
+                    <h2 class="mb-4">Prácticas:</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Destino</th>
+                                <th>Fecha de Salida</th>
+                                <th>Fecha de Regreso</th>
+                                <th>Empresas</th>
+                                <th>Estudiantes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% practicas.forEach(practica=> { %>
+                                <tr>
+                                    <td>
+                                        <%= practica.destino %>
+                                    </td>
+                                    <td>
+                                        <%= practica.fechaSalida %>
+                                    </td>
+                                    <td>
+                                        <%= practica.fechaRegreso %>
+                                    </td>
+                                    <td>
+                                        <a class="collapsed" data-toggle="collapse" href="#empresas-<%= practica.id %>"
+                                            role="button" aria-expanded="false"
+                                            aria-controls="empresas-<%= practica.id %>">
+                                            Ver Empresas
+                                        </a>
+                                        <div class="collapse" id="empresas-<%= practica.id %>">
+                                            <ul class="list-unstyled mt-2">
+                                                <% practica.empresas.forEach(empresa=> { %>
+                                                    <li>
+                                                        <%= empresa.nombre %> - <%= empresa.direccion %>
+                                                    </li>
+                                                    <% }); %>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a class="collapsed" data-toggle="collapse"
+                                            href="#estudiantes-<%= practica.id %>" role="button" aria-expanded="false"
+                                            aria-controls="estudiantes-<%= practica.id %>">
+                                            Ver Estudiantes
+                                        </a>
+                                        <div class="collapse" id="estudiantes-<%= practica.id %>">
+                                            <ul class="list-unstyled mt-2">
+                                                <% practica.estudiantes.forEach(estudiante=> { %>
+                                                    <li>
+                                                        <%= estudiante.nombre %> - <%= estudiante.identificador %>
+                                                    </li>
+                                                    <% }); %>
+                                            </ul>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                    <% } %>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
